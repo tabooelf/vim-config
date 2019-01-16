@@ -311,8 +311,16 @@ call vundle#end()            " 必须
     " Set Default leader or <Esc>
         let mapleader = ' '
         let g:mapleader = ' '
-        imap <A-a> <Esc>
-        vmap <A-a> <Esc>
+        noremap <M-Space> :<Esc><CR>
+        nmap <expr>0 $
+
+    " Move
+        inoremap <A-h> <Left>
+        inoremap <A-j> <DownV>
+        inoremap <A-k> <Up>
+        inoremap <A-l> <Right>
+        noremap <A-w> b
+        noremap <A-e> ge
 
     " Split
         noremap <Leader>1 :<C-u>vsplit<CR>
