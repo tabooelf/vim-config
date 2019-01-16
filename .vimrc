@@ -86,7 +86,7 @@ call vundle#end()            " 必须
         set foldcolumn=1
         autocmd Filetype * AnyFoldActivate
         let g:anyfold_fold_comments=1
-        set foldlevel=2
+        set foldlevel=1
         hi Folded term=NONE cterm=NONE
 
     " Hidden Buffers
@@ -124,8 +124,8 @@ call vundle#end()            " 必须
 
     " Enable Clipboard of Windows
         if has('unnamedplus')
-          set clipboard=unnamed,unnamedplus
-        endif
+          set clipboard^=unnamedplus,unnamed
+        end
 
     " Session management
         let g:session_directory = "~/.vim/session"
@@ -302,21 +302,25 @@ call vundle#end()            " 必须
     " unmap <Esc>
 
     " Colse direction key
-        " map <left> <Nop>
-        " map <Right> <Nop>
-        " map <Up> <Nop>
-        " map <Down> <Nop>
-        " map <Esc> <Nop>
+        map <left> <Nop>
+        map <Right> <Nop>
+        map <Up> <Nop>
+        map <Down> <Nop>
 
-    " Set Default leader or <Esc>
+    " Set Default leader or <Esc> or other
         let mapleader = ' '
         let g:mapleader = ' '
         noremap <M-Space> :<Esc><CR>
-        nmap <expr>0 $
+        vmap ` $
+        nmap ` $
+        vmap ; :
+        nmap ; :
+        nmap <A-q> <C-q>
+        vmap <A-q> <C-q>
 
     " Move
         inoremap <A-h> <Left>
-        inoremap <A-j> <DownV>
+        inoremap <A-j> <Down>
         inoremap <A-k> <Up>
         inoremap <A-l> <Right>
         noremap <A-w> b
@@ -326,21 +330,25 @@ call vundle#end()            " 必须
         noremap <Leader>1 :<C-u>vsplit<CR>
         noremap <Leader>2 :<C-u>split<CR>
 
-    " Set working directory
-        nnoremap <leader>. :lcd %:p:h<CR>
+    " set working directory
+        nnoremap <leader>. :lcd %:p:h<cr>
 
-    " Setting of Tagbar
-        let g:tagbar_ctags_bin = 'D:\Program\ Files\Ctags\ctags.exe'
+    " setting of tagbar
+        let g:tagbar_ctags_bin = 'd:\program\ files\ctags\ctags.exe'
         let g:tagbar_autofocus=1
         nmap <F3> :TagbarToggle<CR>
+
+    " expand region plugin
+        map = <Plug>(expand_region_expand)
+        map - <Plug>(expand_region_shrink)
 
     " tab && indent
         nmap <A-]> V>
         nmap <A-[> V<
         vmap <A-]> >gv
         vmap <A-[> <gv
-        nmap <A-/> gcc
-        vmap <A-/> gcc
+        nmap <A-/> gcc<Esc>
+        vmap <A-/> gcc<Esc>
         imap <A-/> <Esc>gcc<CR>gi
 
     " snippets
@@ -356,22 +364,31 @@ call vundle#end()            " 必须
         nnoremap <leader>sc :CloseSession<CR>
 
     " Move visual block: Move up or down current row
-        nnoremap <A-j> :m .+1<CR>==
-        nnoremap <A-k> :m .-2<CR>==
-        inoremap <A-j> <Esc>:m .+1<CR>==gi
-        inoremap <A-k> <Esc>:m .-2<CR>==gi
-        vnoremap <A-j> :m '>+1<CR>gv=gv
-        vnoremap <A-k> :m '<-2<CR>gv=gv
+        nnoremap <A-J> :m .+1<CR>==
+        nnoremap <A-K> :m .-2<CR>==
+        inoremap <A-J> <Esc>:m .+1<CR>==gi
+        inoremap <A-K> <Esc>:m .-2<CR>==gi
+        vnoremap <A-J> :m '>+1<CR>gv=gv
+        vnoremap <A-K> :m '<-2<CR>gv=gv
 
-    " Switch Tabs
-        " nnoremap ] gt
-        " nnoremap [ gT
-        " nnoremap <leader> <S-t> :tabnew<CR>
+    " FzF config
+        set rtp+=~/.fzf
+        nnoremap <silent> <Leader>ff :Files<CR>
+        nnoremap <silent> <Leader>fb :Buffers<CR>
+
+    " Switch Tabs and buffer
+        nnoremap <A-=> gt
+        nnoremap <A--> gT
+        nnoremap <silent> <leader> tn :tabnew<CR>
+        nnoremap <silent> <leader>bn :bn<CR>
+        nnoremap <silent> <leader>bp :bp<CR>
+        nnoremap <silent> <leader>bd :bd<CR>
 
     " Copy/Paste/Cut
-        " noremap YY "+y<CR>
-        " noremap <leader>p "+gP<CR>
-        " noremap XX "+x<CR>
+        nnoremap <C-a> ggVG
+        noremap <leader>yy "+y<CR>
+        noremap <leader>pp "+p<CR>
+        noremap <leader>xx "+x<CR>
 
     " Switching windows
         " noremap <C-j> <C-w>j
@@ -391,8 +408,9 @@ call vundle#end()            " 必须
     " vim-javascript
         augroup vimrc-javascript
           autocmd!
-          autocmd FileType javascript set tabstop=5|set shiftwidth=4|set expandtab softtabstop=4
+            autocmd FileType javascript set tabstop=5|set shiftwidth=4|set expandtab softtabstop=4
         augroup END
 
     " php
         autocmd FileType php setl shiftwidth=4 tabstop=4 softtabstop=4 expandtab
+
