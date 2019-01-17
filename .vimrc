@@ -29,6 +29,7 @@ call vundle#begin()
     Plugin 'xolox/vim-misc'                                  " vim-session be require
     Plugin 'xolox/vim-session'                               " Session Plugin for VIM
     Plugin 'junegunn/fzf.vim'                                " Advanced Find Search Mananage:W
+    Plugin 'easymotion/vim-easymotion'                       " Vim motion on speed
     " Plugin 'tmhedberg/simpylfold'                            " Simple Fold
     Plugin 'pseewald/vim-anyfold'                            " Fold Plugin
 
@@ -83,11 +84,11 @@ call vundle#end()            " 必须
         set shiftround
 
     " Code Auto Folding
-        set foldcolumn=1
-        autocmd Filetype * AnyFoldActivate
-        let g:anyfold_fold_comments=1
-        set foldlevel=1
-        hi Folded term=NONE cterm=NONE
+        " set foldcolumn=1
+        " autocmd Filetype * AnyFoldActivate
+        " let g:anyfold_fold_comments=1
+        " set foldlevel=0
+        " hi Folded term=NONE cterm=NONE
 
     " Hidden Buffers
         set hidden
@@ -299,25 +300,21 @@ call vundle#end()            " 必须
 
 " Mappings Setting
     " Mappings Initialization
-    " unmap <Esc>
-
     " Colse direction key
         map <left> <Nop>
         map <Right> <Nop>
         map <Up> <Nop>
         map <Down> <Nop>
-
     " Set Default leader or <Esc> or other
-        let mapleader = ' '
-        let g:mapleader = ' '
-        noremap <M-Space> :<Esc><CR>
+        let mapleader=' '
+        let g:mapleader=' '
+        " noremap <M-Space> :<Esc><CR>
         vmap ` $
         nmap ` $
         vmap ; :
         nmap ; :
         nmap <A-q> <C-q>
         vmap <A-q> <C-q>
-
     " Move
         inoremap <A-h> <Left>
         inoremap <A-j> <Down>
@@ -325,24 +322,12 @@ call vundle#end()            " 必须
         inoremap <A-l> <Right>
         noremap <A-w> b
         noremap <A-e> ge
-
-    " Split
-        noremap <Leader>1 :<C-u>vsplit<CR>
-        noremap <Leader>2 :<C-u>split<CR>
-
-    " set working directory
-        nnoremap <leader>. :lcd %:p:h<cr>
-
-    " setting of tagbar
-        let g:tagbar_ctags_bin = 'd:\program\ files\ctags\ctags.exe'
-        let g:tagbar_autofocus=1
-        nmap <F3> :TagbarToggle<CR>
-
-    " expand region plugin
-        map = <Plug>(expand_region_expand)
-        map - <Plug>(expand_region_shrink)
-
-    " tab && indent
+    " Copy/Paste/Cut
+        nnoremap <C-a> ggVG
+        noremap <silent> <leader>yy "+y<CR>
+        noremap <silent> <leader>pp "+p<CR>
+        noremap <silent> <leader>xx "+x<CR>
+    " tab && indent && commentary
         nmap <A-]> V>
         nmap <A-[> V<
         vmap <A-]> >gv
@@ -350,19 +335,23 @@ call vundle#end()            " 必须
         nmap <A-/> gcc<Esc>
         vmap <A-/> gcc<Esc>
         imap <A-/> <Esc>gcc<CR>gi
-
+    " Split and windows
+        noremap <silent> <Leader>w1 :<C-u>vsplit<CR>
+        noremap <silent> <Leader>w2 :<C-u>split<CR>
+    " set working directory
+        nnoremap <leader>cd :lcd %:p:h<cr>
+    " setting of tagbar
+        let g:tagbar_ctags_bin = 'd:\program\ files\ctags\ctags.exe'
+        let g:tagbar_autofocus=1
+        nmap <F3> :TagbarToggle<CR>
+    " expand region plugin
+        map = <Plug>(expand_region_expand)
+        map - <Plug>(expand_region_shrink)
     " snippets
         let g:UltiSnipsExpandTrigger="<tab>"
         let g:UltiSnipsJumpForwardTrigger="<ab>"
         let g:UltiSnipsJumpBackwardTrigger="<c-b>"
         let g:UltiSnipsEditSplit="vertical"
-
-    " session management
-        nnoremap <leader>so :OpenSession<Space>
-        nnoremap <leader>ss :SaveSession<Space>
-        nnoremap <leader>sd :DeleteSession<CR>
-        nnoremap <leader>sc :CloseSession<CR>
-
     " Move visual block: Move up or down current row
         nnoremap <A-J> :m .+1<CR>==
         nnoremap <A-K> :m .-2<CR>==
@@ -370,34 +359,34 @@ call vundle#end()            " 必须
         inoremap <A-K> <Esc>:m .-2<CR>==gi
         vnoremap <A-J> :m '>+1<CR>gv=gv
         vnoremap <A-K> :m '<-2<CR>gv=gv
-
+    " session management
+        nnoremap <leader>so :OpenSession<Space>
+        nnoremap <leader>ss :SaveSession<Space>
+        nnoremap <leader>sd :DeleteSession<CR>
+        nnoremap <leader>sc :CloseSession<CR>
     " FzF config
         set rtp+=~/.fzf
         nnoremap <silent> <Leader>ff :Files<CR>
         nnoremap <silent> <Leader>fb :Buffers<CR>
-
     " Switch Tabs and buffer
-        nnoremap <A-=> gt
-        nnoremap <A--> gT
-        nnoremap <silent> <leader> tn :tabnew<CR>
-        nnoremap <silent> <leader>bn :bn<CR>
-        nnoremap <silent> <leader>bp :bp<CR>
-        nnoremap <silent> <leader>bd :bd<CR>
-
-    " Copy/Paste/Cut
-        nnoremap <C-a> ggVG
-        noremap <leader>yy "+y<CR>
-        noremap <leader>pp "+p<CR>
-        noremap <leader>xx "+x<CR>
-
-    " Switching windows
-        " noremap <C-j> <C-w>j
-        " noremap <C-k> <C-w>k
-        " noremap <C-l> <C-w>l
-        " noremap <C-h> <C-w>h
-
-        map <leader><space> :FixWhitespace<cr>
-
+        nnoremap <silent> <leader>tk gt
+        nnoremap <silent> <leader>tj gT
+        nnoremap <silent> <leader>tn :tabnew<CR>
+        nnoremap <silent> <leader>bj :bn<CR>
+        nnoremap <silent> <leader>bk :bp<CR>
+        nnoremap <silent> <leader>bc :bd<CR>
+    " Fix Tailing White space
+        nnoremap <silent> <leaer>\ :FixWhitespace<cr>
+    " save close open or other
+        nnoremap <C-s> :w!<CR>
+        nnoremap <silent> <leader>q :q!<CR>
+        nnoremap <silent> <leader>c :qa!<CR>
+    " easymotion setting
+        map <Leader> <Plug>(easymotion-prefix)
+        map <Leader>h <Plug>(easymotion-linebackward)
+        map <Leader>l <Plug>(easymotion-lineforward)
+        map <Leader>r <Plug>(easymotion-repeat)
+        let g:EasyMotion_smartcase = 1
 
    " html
         autocmd Filetype html setlocal ts=3 sw=2 expandtab
