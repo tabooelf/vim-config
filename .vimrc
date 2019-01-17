@@ -18,10 +18,10 @@ call vundle#begin()
     Plugin 'vim-scripts/CSApprox'                            " Support shell that show color
     Plugin 'Raimondi/delimitMate'                            " Auto Matching and fill delimiter
     Plugin 'terryma/vim-expand-region'                       " Smart select information in parenthesis
-    Plugin 'surround.vim'                                    " Add or Delete delimiter
-    Plugin 'bronson/vim-trailing-whitespace'                 " Clear trailing whitespace
-    Plugin 'yianwillis/vimcdoc'                              " Vim doc for Zh-cn
-    Plugin 'luochen1990/rainbow'                             " Highlighting of parenthesis
+    Plugin 'tpope/vim-surround'                              " Add or Delete delimiter
+    " Plugin 'bronson/vim-trailing-whitespace'                 " Clear trailing whitespace
+    " Plugin 'yianwillis/vimcdoc'                              " Vim doc for Zh-cn
+    " Plugin 'luochen1990/rainbow'                             " Highlighting of parenthesis
     Plugin 'scrooloose/syntastic'                            " Sytanx check
     Plugin 'sheerun/vim-polyglot'                            " Highlighting of Sytanx
     Plugin 'SirVer/ultisnips'                                " Quick Insert Code Snippets 1
@@ -306,8 +306,8 @@ call vundle#end()            " 必须
         map <Up> <Nop>
         map <Down> <Nop>
     " Set Default leader or <Esc> or other
-        let mapleader=' '
-        let g:mapleader=' '
+        let mapleader=','
+        let g:mapleader=','
         " noremap <M-Space> :<Esc><CR>
         vmap ` $
         nmap ` $
@@ -320,13 +320,13 @@ call vundle#end()            " 必须
         inoremap <A-j> <Down>
         inoremap <A-k> <Up>
         inoremap <A-l> <Right>
-        noremap <A-w> b
-        noremap <A-e> ge
+        " noremap <A-w> b
+        " noremap <A-e> ge
     " Copy/Paste/Cut
         nnoremap <C-a> ggVG
-        noremap <silent> <leader>yy "+y<CR>
-        noremap <silent> <leader>pp "+p<CR>
-        noremap <silent> <leader>xx "+x<CR>
+        " noremap <silent> <leader>yy "+y<CR>
+        " noremap <silent> <leader>pp "+p<CR>
+        " noremap <silent> <leader>xx "+x<CR>
     " tab && indent && commentary
         nmap <A-]> V>
         nmap <A-[> V<
@@ -339,7 +339,7 @@ call vundle#end()            " 必须
         noremap <silent> <Leader>w1 :<C-u>vsplit<CR>
         noremap <silent> <Leader>w2 :<C-u>split<CR>
     " set working directory
-        nnoremap <leader>cd :lcd %:p:h<cr>
+        nnoremap <leader>cd :lcd %:p:h<CR>
     " setting of tagbar
         let g:tagbar_ctags_bin = 'd:\program\ files\ctags\ctags.exe'
         let g:tagbar_autofocus=1
@@ -350,7 +350,7 @@ call vundle#end()            " 必须
     " snippets
         let g:UltiSnipsExpandTrigger="<tab>"
         let g:UltiSnipsJumpForwardTrigger="<ab>"
-        let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+        let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
         let g:UltiSnipsEditSplit="vertical"
     " Move visual block: Move up or down current row
         nnoremap <A-J> :m .+1<CR>==
@@ -368,25 +368,39 @@ call vundle#end()            " 必须
         set rtp+=~/.fzf
         nnoremap <silent> <Leader>ff :Files<CR>
         nnoremap <silent> <Leader>fb :Buffers<CR>
-    " Switch Tabs and buffer
+    " Switch Tabs
+        nnoremap <A-t> :tabnew<CR>
+        inoremap <A-t> <Esc>:tabnew<CR>
         nnoremap <silent> <leader>tk gt
         nnoremap <silent> <leader>tj gT
-        nnoremap <silent> <leader>tn :tabnew<CR>
+        noremap <silent> <leader>t1 1gt
+        noremap <silent> <leader>t2 2gt
+        noremap <silent> <leader>t3 3gt
+        noremap <silent> <leader>t4 4gt
+        noremap <silent> <leader>t5 5gt
+        noremap <silent> <leader>t6 6gt
+        noremap <silent> <leader>t7 7gt
+        noremap <silent> <leader>t8 8gt
+        noremap <silent> <leader>t9 9gt
+        noremap <silent> <leader>t0 :tablast<CR>
+    " Swtich buffer
         nnoremap <silent> <leader>bj :bn<CR>
         nnoremap <silent> <leader>bk :bp<CR>
         nnoremap <silent> <leader>bc :bd<CR>
     " Fix Tailing White space
-        nnoremap <silent> <leaer>\ :FixWhitespace<cr>
+        " nnoremap <silent> <leader> :FixWhitespace<CR>
+        nnoremap <silent> <leader><leader><space> :%s/\r/<CR>
     " save close open or other
         nnoremap <C-s> :w!<CR>
-        nnoremap <silent> <leader>q :q!<CR>
-        nnoremap <silent> <leader>c :qa!<CR>
+        nnoremap <C-q> :qa!<CR>
     " easymotion setting
-        map <Leader> <Plug>(easymotion-prefix)
-        map <Leader>h <Plug>(easymotion-linebackward)
-        map <Leader>l <Plug>(easymotion-lineforward)
-        map <Leader>r <Plug>(easymotion-repeat)
+        map <Leader><Leader> <Plug>(easymotion-prefix)
+        map <Leader><Leader>h <Plug>(easymotion-linebackward)
+        map <Leader><Leader>l <Plug>(easymotion-lineforward)
+        map <Leader><Leader>r <Plug>(easymotion-repeat)
         let g:EasyMotion_smartcase = 1
+    " Emmet default setting
+       let g:user_emmet_leader_key='<C-e>'
 
    " html
         autocmd Filetype html setlocal ts=3 sw=2 expandtab
@@ -402,4 +416,12 @@ call vundle#end()            " 必须
 
     " php
         autocmd FileType php setl shiftwidth=4 tabstop=4 softtabstop=4 expandtab
-
+        function! IPhpExpandClass()
+            call PhpExpandClass()
+            call feedkeys('a', 'n')
+        endfunction
+        autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
+        autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
+        autocmd FileType php inoremap <Leader>s <Esc>:call PhpSortUse()<CR>
+        autocmd FileType php noremap <Leader>s :call PhpSortUse()<CR>
+        let g:php_namespace_sort_after_insert = 1
