@@ -4,8 +4,8 @@ call plug#begin('~/.vim/bundle')
         Plug 'mhinz/vim-startify'
 
     " 文件树
-        Plug 'scrooloose/nerdtree', {'on': ['NERDTree', 'NERDTreeFocus', 'NERDTreeToggle', 'NERDTreeCWD', 'NERDTreeFind'] }
-        Plug 'jistr/vim-nerdtree-tabs'
+		Plug 'scrooloose/nerdtree'
+		Plug 'jistr/vim-nerdtree-tabs'
 
     " Tagbar
         Plug 'majutsushi/tagbar'
@@ -20,8 +20,11 @@ call plug#begin('~/.vim/bundle')
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
 
+	" <c-b><c-f>优化滚动圆滑
+		Plug 'yonchu/accelerated-smooth-scroll'
+
     " Xshell 显示兼容
-        Plug 'vim-scripts/CSApprox'
+        " Plug 'vim-scripts/CSApprox'
 
     " 代码片段及补全
         Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -30,7 +33,12 @@ call plug#begin('~/.vim/bundle')
         Plug 'liuchengxu/vim-which-key'
 
     " 快速文件搜索
-        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+		Plug 'junegunn/fzf.vim'
+		Plug 'rking/ag.vim'
+		" Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+		" Plug 'mileszs/ack.vim'
+		Plug 'dkprice/vim-easygrep'
 
     " 全文快速移动
         Plug 'easymotion/vim-easymotion'
@@ -49,7 +57,8 @@ call plug#begin('~/.vim/bundle')
         Plug 'yianwillis/vimcdoc'
 
     " 文件浏览器，代替 netrw
-        Plug 'justinmk/vim-dirvish'
+		" Plug 'vimplugin/project.vim'
+        " Plug 'justinmk/vim-dirvish'
 
     " 括号匹配 选择 增强操作
         Plug 'Raimondi/delimitMate'

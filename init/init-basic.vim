@@ -28,9 +28,11 @@
         set ignorecase                   " 搜索时忽略大小写
         set smartcase                    " 智能搜索大小写判断
         set magic                        " 无需转义的字符 $ . * ^
-        nnoremap n nzzzv                 " 用N或者n切换到搜索项,保持光标在屏幕中心
-        nnoremap N Nzzzv
-        set scrolloff=8                  " 移动光标 上下保留行数
+		set scrolloff=8                  " 移动光标 上下保留行数
+
+	" 用N或者n切换到搜索项,保持光标在屏幕中心
+        nnoremap n :execute "normal! nzzzv"<cr>
+        nnoremap N :execute "normal! Nzzzv"<cr>
 
     " Backup file && Swp file && Directory
 
