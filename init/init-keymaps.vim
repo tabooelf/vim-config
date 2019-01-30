@@ -110,9 +110,11 @@
 		nnoremap <silent> <Leader>ff :Files<CR>
 		nnoremap <silent> <Leader>fb :Buffers<CR>
 		nnoremap <silent> <Leader>fa :Ag -i<space>
+		nnoremap <silent> <Leader>fw :Windows<CR>
 		let g:which_key_map.f = {'name': '+FZF'}
 		let g:which_key_map.f.f = 'Find files'
 		let g:which_key_map.f.b = 'Find buffer'
+		let g:which_key_map.f.w = 'Find windows'
 		let g:which_key_map.f.a = 'Search with words'
 
 	" EasyGrep Configuration
@@ -122,7 +124,7 @@
 	" Netrw Configuration
 		" nnoremap <silent> <leader>pf <c-u>:e.<CR>
 		" nnoremap <silent> <leader>pn <c-u>:new<space>
-		" nmap <leader>pp <c-u>:e.<CR><Esc>gbc
+		" nma <leader>pp <c-u>:e.<CR><Esc>gbc
 		" let g:which_key_map.p = {'name': '+Project'}
 		" let g:which_key_map.p.f = 'File Manager'
 		" let g:which_key_map.p.p = 'Open Project'
@@ -131,18 +133,54 @@
 	" NERDTree Configuration
 		nnoremap <F2> :NERDTreeToggle<cr>
 	    nnoremap <leader>pp <c-u>:e.<cr>
-		nnoremap <leader>pm :Bookmark<space>
-		nnoremap <leader>po :OpenBookmark<space>
+		nnoremap <leader>pm <c-u>:Bookmark<space>
+		nnoremap <leader>po <c-u>:OpenBookmark<space>
 		nnoremap <leader>pc :ClearAllBookmark<cr>
-		nnoremap <leader>pd :ClearBookmark<space>
+		nnoremap <leader>pd <c-u>:ClearBookmark<space>
 		let g:which_key_map.p = {'name': '+Project'}
 		let g:which_key_map.p.p = 'Open Directory'
 		let g:which_key_map.p.m = 'Bookmark'
 		let g:which_key_map.p.o = 'Open Bookmark'
 		let g:which_key_map.p.c = 'Clear All Bookmark'
-		let g:which_key_map.p.d = 'Delete Bookmark'
+		let g:which_key_map.p.d = 'Delete Bookmark'"
 
 
+	" Window Operation
+		nmap <leader>wc <c-w>c
+		nmap <leader>wq <c-w>q
+		nmap <leader>wo <c-w>o
+		nmap <leader>ws <c-w>s
+		nmap <leader>wv <c-w>v
+		nmap <leader>wj <c-w>j
+		nmap <leader>wk <c-w>k
+		nmap <leader>wh <c-w>h
+		nmap <leader>wl <c-w>l
+		nmap <leader>ww <c-w>w
+		nmap <leader>wJ <c-w>J
+		nmap <leader>wK <c-w>K
+		nmap <leader>wH <c-w>H
+		nmap <leader>wL <c-w>L
+		nmap <leader>w+ <c-w>+
+		nmap <leader>w- <c-w>-
+		nmap <leader>w= <c-w>=
+		let g:which_key_map.w = {'name': '+Windows'}
+		let g:which_key_map.w.c = '关闭当前窗口'
+		let g:which_key_map.w.q = '退出当前窗口'
+		let g:which_key_map.w.o = '仅显示当前窗口'
+		let g:which_key_map.w.s = '上下分屏'
+		let g:which_key_map.w.v = '左右分屏'
+		let g:which_key_map.w.w = '切换分屏'
+		let g:which_key_map.w.j = '光标下移动'
+		let g:which_key_map.w.k = '光标上移动'
+		let g:which_key_map.w.h = '光标左移动'
+		let g:which_key_map.w.l = '光标右移动'
+		let g:which_key_map.w.J = '窗口下移'
+		let g:which_key_map.w.K = '窗口上移'
+		let g:which_key_map.w.H = '窗口左移'
+		let g:which_key_map.w.L = '窗口右移'
+		let g:which_key_map['w']['+'] = '增加高度'
+		let g:which_key_map['w']['-'] = '减少高度'
+		let g:which_key_map['w']['='] = '均分屏幕'
 
 
 
