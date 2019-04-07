@@ -26,23 +26,36 @@
 
     " Theme And Color
         set background=dark
+        " colorscheme morning
         colorscheme Tomorrow-Night-Eighties
 
     " Window GUI Default Setting
-        set shortmess=atI       "隐藏广告页面
+        " set shortmess=atI       "隐藏广告页面
+        "     au GUIEnter * simalt ~x " 窗口启动时自动最大化
         if has("gui_running")
-            au GUIEnter * simalt ~x " 窗口启动时自动最大化
-            set guioptions-=m       " 隐藏菜单栏
-            set guioptions-=T       " 隐藏工具栏
-            set guioptions-=L       " 隐藏左侧滚动条
-            set guioptions-=r       " 隐藏右侧滚动条
-            set guioptions-=b       " 隐藏底部滚动条
-            set showtabline=0       " 隐藏Tab栏
+          set guioptions-=m       " 隐藏菜单栏
+          set guioptions-=T       " 隐藏工具栏
+          set guioptions-=L       " 隐藏左侧滚动条
+          set guioptions-=r       " 隐藏右侧滚动条
+          set guioptions-=b       " 隐藏底部滚动条
+          set showtabline=0       " 隐藏Tab栏
+        endif
+
+    " Disable gui popupmenu
+        if exists(':GuiPopupmenu') == 2
+          GuiPopupmenu 0
+        endif
+
+    " Disbale gui tabline
+        if exists(':GuiTabline') == 2
+          GuiTabline 0
         endif
 
     " Font Setting
-        set guifont=FuraMono_NF:h12:cANSI
-        set guifontwide=YaHei_Consolas_Hybrid:h13:cGB2312
+        let s:myfont = "Consolas NF:h13:cANSI"
+        let s:cnfont = "Mircosoft YaHei UI:h13:cGB2312"
+        let &guifont = s:myfont
+        " let &guifontwide = s:cnfont
 
     " Indent Line Setting
         let g:indentLine_enabled = 1
@@ -64,217 +77,9 @@
         " set showcmd
 
     " display of title bar
-        set title
-        set titleold="Terminal"
-        set titlestring=%F
-
-    " vim-airline
-        let g:airline_powerline_fonts = 1
-        let g:airline_theme = 'powerlineish'
-        let g:airline#extensions#syntastic#enabled = 1
-        let g:airline#extensions#branch#enabled = 1
-        let g:airline#extensions#tabline#enabled = 1
-        let g:airline#extensions#tagbar#enabled = 1
-        let g:airline_skip_empty_sections = 1
-        let g:airline#extensions#whitespace#enabled = 1
-        " let g:airline#extensions#whitespace#symbol = '!'
-        " Enable Symbols of AirLine
-            if !exists('g:airline_symbols')
-                let g:airline_symbols = {}
-            endif
-        " Fix Symbol and Set Airline_Powerline-fonts
-            if !exists('g:airline_powerline_fonts')
-                let g:airline#extensions#tabline#left_sep = ' '
-                let g:airline#extensions#tabline#left_alt_sep = '|'
-                let g:airline_left_sep          = '▶'
-                let g:airline_left_alt_sep      = '»'
-                let g:airline_right_sep         = '◀'
-                let g:airline_right_alt_sep     = '«'
-                let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-                let g:airline#extensions#readonly#symbol   = '⊘'
-                let g:airline#extensions#linecolumn#prefix = '¶'
-                let g:airline#extensions#paste#symbol      = 'ρ'
-                let g:airline_symbols.linenr    = '␊'
-                let g:airline_symbols.branch    = '⎇'
-                let g:airline_symbols.paste     = 'ρ'
-                let g:airline_symbols.paste     = 'Þ'
-                let g:airline_symbols.paste     = '∥'
-                let g:airline_symbols.whitespace = 'Ξ'
-            else
-                let g:airline#extensions#tabline#left_sep = ''
-                let g:airline#extensions#tabline#left_alt_sep = ''
-                let g:airline_left_sep = ''
-                let g:airline_left_alt_sep = ''
-                let g:airline_right_sep = ''
-                let g:airline_right_alt_sep = ''
-                let g:airline_symbols.branch = ''
-                let g:airline_symbols.readonly = ''
-                let g:airline_symbols.linenr = ''
-            endif
-
-"----------------------------------------------------------------------
-" 标签栏文字风格：默认为零，GUI 模式下空间大，按风格 3显示
-" 0: filename.txt
-" 2: 1 - filename.txt
-" 3: [1] filename.txt
-"----------------------------------------------------------------------
-    let g:config_vim_tab_style = 2
-
-
-
-"----------------------------------------------------------------------
-" 终端下的 tabline
-"----------------------------------------------------------------------
-function! Vim_NeatTabLine()
-    let s = ''
-    for i in range(tabpagenr('$'))
-        " select the highlighting
-        if i + 1 == tabpagenr()
-            let s .= '%#TabLineSel#'
-        else
-            let s .= '%#TabLine#'
-        endif
-
-        " set the tab page number (for mouse clicks)
-        let s .= '%' . (i + 1) . 'T'
-
-        " the label is made by MyTabLabel()
-        let s .= ' %{Vim_NeatTabLabel(' . (i + 1) . ')} '
-    endfor
-
-    " after the last tab fill with TabLineFill and reset tab page nr
-    let s .= '%#TabLineFill#%T'
-
-    " right-align the label to close the current tab page
-    if tabpagenr('$') > 1
-        let s .= '%=%#TabLine#%999XX'
-    endif
-
-    return s
-endfunc
-
-
-"----------------------------------------------------------------------
-" 需要显示到标签上的文件名
-"----------------------------------------------------------------------
-function! Vim_NeatBuffer(bufnr, fullname)
-    let l:name = bufname(a:bufnr)
-    if getbufvar(a:bufnr, '&modifiable')
-        if l:name == ''
-            return '[No Name]'
-        else
-            if a:fullname
-                return fnamemodify(l:name, ':p')
-            else
-                let aname = fnamemodify(l:name, ':p')
-                let sname = fnamemodify(aname, ':t')
-                if sname == ''
-                    let test = fnamemodify(aname, ':h:t')
-                    if test != ''
-                        return '<'. test . '>'
-                    endif
-                endif
-                return sname
-            endif
-        endif
-    else
-        let l:buftype = getbufvar(a:bufnr, '&buftype')
-        if l:buftype == 'quickfix'
-            return '[Quickfix]'
-        elseif l:name != ''
-            if a:fullname
-                return '-'.fnamemodify(l:name, ':p')
-            else
-                return '-'.fnamemodify(l:name, ':t')
-            endif
-        else
-        endif
-        return '[No Name]'
-    endif
-endfunc
-
-
-"----------------------------------------------------------------------
-" 标签栏文字，使用 [1] filename 的模式
-"----------------------------------------------------------------------
-function! Vim_NeatTabLabel(n)
-    let l:buflist = tabpagebuflist(a:n)
-    let l:winnr = tabpagewinnr(a:n)
-    let l:bufnr = l:buflist[l:winnr - 1]
-    let l:fname = Vim_NeatBuffer(l:bufnr, 0)
-    let l:num = a:n
-    let style = get(g:, 'config_vim_tab_style', 0)
-    if style == 0
-        return l:fname
-    elseif style == 1
-        return "[".l:num."] ".l:fname
-    elseif style == 2
-        return "".l:num." - ".l:fname
-    endif
-    if getbufvar(l:bufnr, '&modified')
-        return "[".l:num."] ".l:fname." +"
-    endif
-    return "[".l:num."] ".l:fname
-endfunc
-
-
-"----------------------------------------------------------------------
-" GUI 下的标签文字，使用 [1] filename 的模式
-"----------------------------------------------------------------------
-function! Vim_NeatGuiTabLabel()
-    let l:num = v:lnum
-    let l:buflist = tabpagebuflist(l:num)
-    let l:winnr = tabpagewinnr(l:num)
-    let l:bufnr = l:buflist[l:winnr - 1]
-    let l:fname = Vim_NeatBuffer(l:bufnr, 0)
-    let style = get(g:, 'config_vim_tab_style', 0)
-    if style == 0
-        return l:fname
-    elseif style == 1
-        return "[".l:num."] ".l:fname
-    elseif style == 2
-        return "".l:num." - ".l:fname
-    endif
-    if getbufvar(l:bufnr, '&modified')
-        return "[".l:num."] ".l:fname." +"
-    endif
-    return "[".l:num."] ".l:fname
-endfunc
-
-
-
-"----------------------------------------------------------------------
-" 设置 GUI 标签的 tips: 显示当前标签有哪些窗口
-"----------------------------------------------------------------------
-function! Vim_NeatGuiTabTip()
-    let tip = ''
-    let bufnrlist = tabpagebuflist(v:lnum)
-    for bufnr in bufnrlist
-        " separate buffer entries
-        if tip != ''
-            let tip .= " \n"
-        endif
-        " Add name of buffer
-        let name = Vim_NeatBuffer(bufnr, 1)
-        let tip .= name
-        " add modified/modifiable flags
-        if getbufvar(bufnr, "&modified")
-            let tip .= ' [+]'
-        endif
-        if getbufvar(bufnr, "&modifiable")==0
-            let tip .= ' [-]'
-        endif
-    endfor
-    return tip
-endfunc
-
-
-"----------------------------------------------------------------------
-" 标签栏最终设置
-"----------------------------------------------------------------------
-set tabline=%!Vim_NeatTabLine()
-set guitablabel=%{Vim_NeatGuiTabLabel()}
-set guitabtooltip=%{Vim_NeatGuiTabTip()}
+        " set title
+        " set titleold="Terminal"
+        " set titlestring=%F
 
 
 

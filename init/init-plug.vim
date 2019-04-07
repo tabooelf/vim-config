@@ -4,8 +4,8 @@ call plug#begin('~/.vim/bundle')
         Plug 'mhinz/vim-startify'
 
     " 文件树
-		Plug 'scrooloose/nerdtree'
-		Plug 'jistr/vim-nerdtree-tabs'
+        Plug 'scrooloose/nerdtree'
+        Plug 'jistr/vim-nerdtree-tabs'
 
     " Tagbar
         Plug 'majutsushi/tagbar'
@@ -20,8 +20,8 @@ call plug#begin('~/.vim/bundle')
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
 
-	" <c-b><c-f>优化滚动圆滑
-		Plug 'yonchu/accelerated-smooth-scroll'
+    " <c-b><c-f>优化滚动圆滑
+        Plug 'yonchu/accelerated-smooth-scroll'
 
     " Xshell 显示兼容
         " Plug 'vim-scripts/CSApprox'
@@ -29,16 +29,25 @@ call plug#begin('~/.vim/bundle')
     " 代码片段及补全
         Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
+        if has('nvim')
+          Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        else
+          Plug 'Shougo/deoplete.nvim'
+          Plug 'roxma/nvim-yarp'
+          Plug 'roxma/vim-hug-neovim-rpc'
+        endif
+        let g:deoplete#enable_at_startup = 1
+
     " vim-which-key
         Plug 'liuchengxu/vim-which-key'
 
     " 快速文件搜索
-		Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-		Plug 'junegunn/fzf.vim'
-		Plug 'rking/ag.vim'
-		" Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
-		" Plug 'mileszs/ack.vim'
-		Plug 'dkprice/vim-easygrep'
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+        Plug 'junegunn/fzf.vim'
+        Plug 'rking/ag.vim'
+        " Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+        " Plug 'mileszs/ack.vim'
+        Plug 'dkprice/vim-easygrep'
 
     " 全文快速移动
         Plug 'easymotion/vim-easymotion'
@@ -64,6 +73,9 @@ call plug#begin('~/.vim/bundle')
         Plug 'Raimondi/delimitMate'
         Plug 'terryma/vim-expand-region'
         Plug 'tpope/vim-surround'
+
+	" Git 操作
+		Plug 'tpope/vim-fugitive'
 
     " HTML
         Plug 'hail2u/vim-css3-syntax'

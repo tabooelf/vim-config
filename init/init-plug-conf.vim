@@ -5,53 +5,7 @@
     let g:session_command_aliases = 1
 
 " vim-airline
-    let g:airline_powerline_fonts = 1
-    let g:airline_theme = 'powerlineish'
-    let g:airline_exclude_preview = 1
-    let g:airline_section_b = '%n'
-    let g:airline#extensions#fugitiveline#enabled = 0
-    let g:airline#extensions#syntastic#enabled = 1
-    let g:airline#extensions#vimagit#enabled = 0
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#branch#enabled = 1
-    let g:airline#extensions#tagbar#enabled = 1
-    let g:airline#extensions#csv#enabled = 0
-    let g:airline_skip_empty_sections = 1
-    let g:airline#extensions#whitespace#enabled = 1
-    " let g:airline#extensions#whitespace#symbol = '!'
-    " Enable Symbols of AirLine
-        if !exists('g:airline_symbols')
-            let g:airline_symbols = {}
-        endif
-    " Fix Symbol and Set Airline_Powerline-fonts
-        if !exists('g:airline_powerline_fonts')
-            let g:airline#extensions#tabline#left_sep = ' '
-            let g:airline#extensions#tabline#left_alt_sep = '|'
-            let g:airline_left_sep          = '▶'
-            let g:airline_left_alt_sep      = '»'
-            let g:airline_right_sep         = '◀'
-            let g:airline_right_alt_sep     = '«'
-            let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-            let g:airline#extensions#readonly#symbol   = '⊘'
-            let g:airline#extensions#linecolumn#prefix = '¶'
-            let g:airline#extensions#paste#symbol      = 'ρ'
-            let g:airline_symbols.linenr    = '␊'
-            let g:airline_symbols.branch    = '⎇'
-            let g:airline_symbols.paste     = 'ρ'
-            let g:airline_symbols.paste     = 'Þ'
-            let g:airline_symbols.paste     = '∥'
-            let g:airline_symbols.whitespace = 'Ξ'
-        else
-            let g:airline#extensions#tabline#left_sep = ''
-            let g:airline#extensions#tabline#left_alt_sep = ''
-            let g:airline_left_sep = ''
-            let g:airline_left_alt_sep = ''
-            let g:airline_right_sep = ''
-            let g:airline_right_alt_sep = ''
-            let g:airline_symbols.branch = ''
-            let g:airline_symbols.readonly = ''
-            let g:airline_symbols.linenr = ''
-        endif
+    execute 'source' fnamemodify(expand('<sfile>'), ':h').'/plugs/vim-airline.vim'
 
 " NERDTree configuration
     let g:NERDTreeChDirMode=2
@@ -81,3 +35,12 @@
 
 " Ag in FzF
 	" export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
+" Startify Configuration
+    let g:startify_lists = [
+          \ { 'type': 'files',     'header': ['   MRU']            },
+          \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ { 'type': 'commands',  'header': ['   Commands']       },
+          \ ]

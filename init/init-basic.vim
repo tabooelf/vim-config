@@ -9,9 +9,13 @@
 
     " Encoding && Language
         language messages zh_CN.utf-8
-        set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+		" let &termencoding=&encoding
+		" set fileencoding=utf-8
+        set fileencodings=utf-8,gb2313,gbk,gb18030,cp936
         set termencoding=utf-8
         set encoding=utf-8
+		set fileformats=unix
+		" set encoding=prc
         set bomb
         set binary
         set ttyfast

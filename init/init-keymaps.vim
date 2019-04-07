@@ -19,7 +19,7 @@
 
     " session management
         nnoremap <silent> <leader>so :OpenSession<CR>
-        nnoremap <silent> <leader>ss :SaveSession<CR>
+        nnoremap <silent> <leader>ss :SaveSession<space>
         nnoremap <silent> <leader>sd :DeleteSession<CR>
         nnoremap <silent> <leader>sc :CloseSession<CR>
         let g:which_key_map.s = {'name' : '+Session'}
@@ -69,6 +69,7 @@
         " nnoremap <silent> <leader> :FixWhitespace<CR>
         nnoremap <silent> <leader><leader><space> <C-u>:%s/\r/<CR>
         vnoremap <silent> <leader><leader><space> <C-u>:%s/\r/<CR>
+		let g:which_key_map[','][' '] = 'Clear Win End'
 
     " Move with Cursor
         noremap <M-h> <left>
@@ -132,18 +133,19 @@
 
 	" NERDTree Configuration
 		nnoremap <F2> :NERDTreeToggle<cr>
-	    nnoremap <leader>pp <c-u>:e.<cr>
-		nnoremap <leader>pm <c-u>:Bookmark<space>
-		nnoremap <leader>po <c-u>:OpenBookmark<space>
+	    nnoremap <leader>pp :e.<cr>
+		nnoremap <leader>pm :Bookmark<space>
+		nnoremap <leader>po :OpenBookmark<space>
 		nnoremap <leader>pc :ClearAllBookmark<cr>
-		nnoremap <leader>pd <c-u>:ClearBookmark<space>
+		nnoremap <leader>pd :ClearBookmark<space>
+		nnoremap <leader>ps :Startify<cr>
 		let g:which_key_map.p = {'name': '+Project'}
 		let g:which_key_map.p.p = 'Open Directory'
 		let g:which_key_map.p.m = 'Bookmark'
 		let g:which_key_map.p.o = 'Open Bookmark'
 		let g:which_key_map.p.c = 'Clear All Bookmark'
 		let g:which_key_map.p.d = 'Delete Bookmark'"
-
+		let g:which_key_map.p.s = 'Startify'
 
 	" Window Operation
 		nmap <leader>wc <c-w>c
@@ -182,6 +184,10 @@
 		let g:which_key_map['w']['-'] = '减少高度'
 		let g:which_key_map['w']['='] = '均分屏幕'
 
-
+	" Other Configuration
+		nnoremap <c-v> :<c-u>execute 'normal! "+p'<cr>
+		vnoremap <c-v> :<c-u>execute 'normal! "+p'<cr>
+		nnoremap <c-c> "+y<cr>
+		vnoremap <c-c> "+y<cr>
 
 
